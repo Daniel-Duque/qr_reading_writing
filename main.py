@@ -8,6 +8,9 @@ Created on Sat Jul 13 11:14:58 2024
 #used drive ai generation code for this
 
 import cv2
+import numpy as np
+import qrcode
+
 def detect_qr():
     # prompt: give me a code to detect a qr code
     # Initialize video capture
@@ -33,7 +36,31 @@ def detect_qr():
         # Check for key press
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
-# Release video capture and destroy all windows
     vid.release()
     cv2.destroyAllWindows()
+    
+    
+def generate_qr(text):
+    # prompt: give me a code to generate a qr code
+    # Release video capture and destroy all windows
+
+    
+    # Define the QR code data
+
+    # Initialize the QRCode object
+    qr_code = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
+    )
+    
+    # Add the data to the QR code
+    qr_code.add_data(text)
+    
+    # Generate the QR code image
+    qr_image = qr_code.make_image(fill_color="black", back_color="white")
+    
+    qr_image.show()
+    
+generate_qr("jhsfdaf")
