@@ -10,6 +10,11 @@ Created on Sat Jul 13 11:14:58 2024
 import cv2
 import numpy as np
 import qrcode
+import os 
+import time
+import pandas as pd
+os.chdir(r"C:\Users\Asistente IBC\Documents\qr\qr_reading_writing-main\qr_reading_writing-main")
+data=pd.read_excel(r"data/Registro_llegada.xlsx")
 
 def detect_qr():
     # prompt: give me a code to detect a qr code
@@ -29,14 +34,16 @@ def detect_qr():
         # Check if QR code is detected
         if data:
             print(data)
-        return data
+            vid.release()
+            return data
+        
         # Display the resulting frame
         cv2.imshow('QR Code Detector', img)
     
         # Check for key press
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-    vid.release()
+    
     cv2.destroyAllWindows()
     
     
@@ -61,6 +68,11 @@ def generate_qr(text):
     # Generate the QR code image
     qr_image = qr_code.make_image(fill_color="black", back_color="white")
     
-    qr_image.show()
+    qr_image.save(r"images/"+str(text)+".png")
+
+def registrar_llegada():
+    valores=detect_qr()
     
-generate_qr("jhsfdaf")
+    
+detect_qr()
+generate_qr("255542151")
