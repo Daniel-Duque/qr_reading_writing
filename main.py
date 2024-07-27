@@ -71,7 +71,9 @@ def generate_qr(text):
     qr_image.save(r"images/"+str(text)+".png")
 
 def registrar_llegada():
+    base2=pd.DataFrame({'Nombre': {}, 'Identificación': {}, 'Ministerio': {}, 'Ingreso': {}})
     valores=detect_qr()
+    
     
     
 detect_qr()
