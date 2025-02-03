@@ -13,7 +13,7 @@ import qrcode
 import os 
 import time
 import pandas as pd
-os.chdir(r"C:\Users\Asistente IBC\Documents\qr\qr_reading_writing-main\qr_reading_writing-main")
+os.chdir(r"C:\Users\User\Documents\qr_reading_writing")
 data=pd.read_excel(r"data/Registro_llegada.xlsx")
 
 def detect_qr():
@@ -73,7 +73,7 @@ def generate_qr(text):
 def registrar_llegada():
     base2=pd.DataFrame({'Nombre': {}, 'Identificación': {}, 'Ministerio': {}, 'Ingreso': {}})
     valores=detect_qr()
-    
+      
     
     
 detect_qr()
