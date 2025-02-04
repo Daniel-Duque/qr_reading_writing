@@ -14,7 +14,7 @@ import os
 import time
 import pandas as pd
 os.chdir(r"C:\Users\User\Documents\qr_reading_writing")
-data=pd.read_excel(r"data/Registro_llegada.xlsx")
+data=pd.read_excel(r"data/Registro_general.ods")
 
 def detect_qr():
     # prompt: give me a code to detect a qr code
@@ -72,8 +72,11 @@ def generate_qr(text):
 
 def registrar_llegada():
     base2=pd.DataFrame({'Nombre': {}, 'Identificación': {}, 'Ministerio': {}, 'Ingreso': {}})
+    
     valores=detect_qr()
-      
+    datos_particulares=data.loc[data['Identificación'] == valores]
+    
+    return datos_particulares
     
     
 detect_qr()
