@@ -12,6 +12,8 @@ import numpy as np
 import qrcode
 import os 
 import time
+import datetime
+
 import pandas as pd
 os.chdir(r"C:\Users\User\Documents\qr_reading_writing")
 data=pd.read_excel(r"data/Registro_general.ods")
@@ -70,12 +72,23 @@ def generate_qr(text):
     
     qr_image.save(r"images/"+str(text)+".png")
 
-def registrar_llegada():
-    base2=pd.DataFrame({'Nombre': {}, 'Identificación': {}, 'Ministerio': {}, 'Ingreso': {}})
+def registrar_llegada(save=True):
+    base2=pd.read_excel(r"data/Registro_llegada.ods")
+    now = datetime.datetime.now()
+    now
+
+    print(now)
     
     valores=detect_qr()
     datos_particulares=data.loc[data['Identificación'] == valores]
-    
+    datos_particulares["hora_registro"]=str(now)
+    added=pd.concat([base2,datos_particulares])
+    if save:
+        try:
+            added.to_excel(r"data/Registro_llegada.ods")
+            added.to_excel(r"data/Registro_llegada_backup.ods")
+        except Exception as e:
+            print(e)                   
     return datos_particulares
     
     
