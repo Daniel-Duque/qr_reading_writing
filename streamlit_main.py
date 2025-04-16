@@ -11,7 +11,12 @@ from io import BytesIO
 from PIL import Image
 import cv2
 from pyzbar import pyzbar
+import pandas as pd
+import datetime
+import os
 
+os.chdir(r"C:\Users\User\Documents\qr_reading_writing")
+data=pd.read_excel(r"data/Registro_general.ods")
 def generate_qr_code(data):
     """
     Generates a QR code image from the provided data.
@@ -106,7 +111,24 @@ def scan_qr_code():
         if st.button('Stop Scanning', key='stop', on_click=stop_scanning):
             cap.release()
             cv2.destroyAllWindows()
+def registrar_llegada(save=True):
+    base2=pd.read_excel(r"data/Registro_llegada.ods")
+    now = datetime.datetime.now()
+    now
 
+    print(now)
+    
+    valores=scan_qr_code()
+    datos_particulares=data.loc[data['Identificación'] == valores]
+    datos_particulares["hora_registro"]=str(now)
+    added=pd.concat([base2,datos_particulares])
+    if save:
+        try:
+            added.to_csv(r"data/Registro_llegada.txt",mode="a",header=False)
+        except Exception as e:
+            print(e)                   
+    return datos_particulares
+    
 st.title("QR Code Toolkit")
 
 option = st.radio(
