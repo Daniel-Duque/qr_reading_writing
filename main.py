@@ -85,12 +85,11 @@ def registrar_llegada(save=True):
     added=pd.concat([base2,datos_particulares])
     if save:
         try:
-            added.to_excel(r"data/Registro_llegada.ods")
-            added.to_excel(r"data/Registro_llegada_backup.ods")
+            added.to_csv(r"data/Registro_llegada.txt",mode="a",header=False)
         except Exception as e:
             print(e)                   
     return datos_particulares
     
     
-detect_qr()
-generate_qr("255542151")
+
+registrar_llegada()
