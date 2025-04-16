@@ -133,10 +133,10 @@ st.title("QR Code Toolkit")
 
 option = st.radio(
     "Choose an option:",
-    ("Create QR", "Scan QR")
+    ("Create QR", "cargar usuario")
 )
 
 if option == "Create QR":
     create_qr_code()
-elif option == "Scan QR":
-    scan_qr_code()
+elif option == "cargar usuario":
+    registrar_llegada()
