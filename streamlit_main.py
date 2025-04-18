@@ -103,28 +103,28 @@ def scan_qr_code():
 
             # Display the decoded QR codes if it's a new message
             if qr_codes:
+                
                 if st.session_state.decoded_message != qr_codes[0]:
                     st.session_state.decoded_message = qr_codes[0]
                     st.success(f"Decoded QR Code: {qr_codes[0]}")
-                    break
+                    return qr_codes[0]
+                    
 
         if st.button('Stop Scanning', key='stop', on_click=stop_scanning):
             cap.release()
             cv2.destroyAllWindows()
 def registrar_llegada(save=True):
     base2=pd.read_excel(r"data/Registro_llegada.ods")
-    now = datetime.datetime.now()
-    now
-
-    print(now)
-    
+    now = datetime.datetime.now()    
     valores=scan_qr_code()
-    datos_particulares=data.loc[data['Identificación'] == valores]
+    print(1)
+    datos_particulares=data.loc[data['Identificación'] == int(valores)]
+    print(valores)
     datos_particulares["hora_registro"]=str(now)
-    added=pd.concat([base2,datos_particulares])
     if save:
         try:
-            added.to_csv(r"data/Registro_llegada.txt",mode="a",header=False)
+            datos_particulares.to_csv(r"data/Registro_llegada.txt",mode="a",header=False)
+            print(3)
         except Exception as e:
             print(e)                   
     return datos_particulares
